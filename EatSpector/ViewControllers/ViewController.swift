@@ -15,16 +15,16 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var businesses: [Business] = []
     var searching = false;
     var searchInput: [Business] = [];
-    let cellSpacingHeight: CGFloat = 20
+    let cellSpacingHeight: CGFloat = 30
     let locationManager: CLLocationManager = CLLocationManager();
     
     
     override func viewDidLoad() {
         tableView.delegate = self
-        tableView.rowHeight = 114
+        
+        tableView.rowHeight = 128
         
         //tableView.rowHeight = UITableView.automaticDimension
-        //tableView.estimatedRowHeight = 650
         
         locationManager.delegate = self;
         locationManager.requestWhenInUseAuthorization();
@@ -76,7 +76,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         cell.selectedBackgroundView = backgroundView
         cell.contentView.backgroundColor = UIColor.init(red: 0.9, green: 1.0, blue: 1.0, alpha: 0.9)
         //code to set the cell background
-        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 114))
+        
+       // let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
+       // loadingMoreViews = InfiniteScrollActivityView(frame: frame)
+        
+        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.height - 20, height: 128))
+    
         whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 0.9])
         whiteRoundedView.layer.masksToBounds = false
         whiteRoundedView.layer.cornerRadius = 2.0

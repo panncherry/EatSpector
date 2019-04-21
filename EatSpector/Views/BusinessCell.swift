@@ -14,6 +14,8 @@ class BusinessCell: UITableViewCell {
     @IBOutlet weak var gradingLabel: UILabel!
     @IBOutlet weak var gradingLabel2: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressLabel2: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -32,10 +34,11 @@ class BusinessCell: UITableViewCell {
             //self.record_dateLabel.text = business.record_date
             
             let building = business.building_number + " "
-            let street = business.street + ", "
+            let street = business.street
             let boro = business.boro + ", NY "
             let zipcode = business.zipcode
-            self.addressLabel.text = building + street + boro + zipcode
+            self.addressLabel.text = building + street
+            self.addressLabel2.text = boro + zipcode
  
         }
     }
@@ -47,6 +50,5 @@ class BusinessCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
-    
+
 }
