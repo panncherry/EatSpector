@@ -9,8 +9,8 @@ import UIKit
 import AFNetworking
 import CoreLocation
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
-
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
+    
     @IBOutlet weak var tableView: UITableView!
     var businesses: [Business] = []
     var searching = false;
@@ -18,28 +18,29 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     let cellSpacingHeight: CGFloat = 30
     let locationManager: CLLocationManager = CLLocationManager();
     
+    @IBOutlet weak var searchBar: UISearchBar!
     
     override func viewDidLoad() {
         tableView.delegate = self
-        
         tableView.rowHeight = 128
-        
-        //tableView.rowHeight = UITableView.automaticDimension
-        
+        searchBar.delegate = self
         locationManager.delegate = self;
         locationManager.requestWhenInUseAuthorization();
         locationManager.startUpdatingLocation();
         
         locationManager.distanceFilter = 75;
         //locationManager.stopUpdatingLocation()
-        
         tableView.dataSource = self
         fetchBusinesses()
     }
     
-    /*:
-     # Set up navigation bar
-     */
+    override func viewDidAppear(_ animated: Bool) {
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor.black
+    }
+    
+    //Set up navigation bar
     func setupNavBar(){
         navigationController?.navigationBar.prefersLargeTitles = true;
         let searchController = UISearchController(searchResultsController: nil);
@@ -49,40 +50,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    /*:
-     # Count business
-     */
+    //Count business
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searching{
-            print(searchInput.count )
-            return searchInput.count ;
+            return searchInput.count
         }
         else{
-            print(businesses.count);
-            return businesses.count;
+            return businesses.count
         }
-        
     }
     
     
-    /*:
-     # Get cell indexPath.row
-     */
+    //Get cell indexPath.row
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
+        
         //code to change color of selected cell background
         let backgroundView = UIView()
-        backgroundView.backgroundColor = UIColor.init(red: 0.9, green: 1.0, blue: 1.0, alpha: 1.0)
+       //backgroundView.backgroundColor = UIColor.init(red: 0.9, green: 1.0, blue: 1.0, alpha: 1.0)
+        backgroundView.backgroundColor = UIColor.init(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+
         cell.selectedBackgroundView = backgroundView
-        cell.contentView.backgroundColor = UIColor.init(red: 0.9, green: 1.0, blue: 1.0, alpha: 0.9)
+        //cell.contentView.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.9)
         //code to set the cell background
+        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 128))
         
-       // let frame = CGRect(x: 0, y: tableView.contentSize.height, width: tableView.bounds.size.width, height: InfiniteScrollActivityView.defaultHeight)
-       // loadingMoreViews = InfiniteScrollActivityView(frame: frame)
-        
-        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.height - 20, height: 128))
-    
-        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 1.0, 0.9])
+        //cell background color
+        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 0.9])
         whiteRoundedView.layer.masksToBounds = false
         whiteRoundedView.layer.cornerRadius = 2.0
         whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
@@ -99,9 +93,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    /*:
-     # Fetch business
-     */
+    //Fetch business
     func fetchBusinesses () {
         BusinessAPIManager().getBusinesses { (businesses: [Business]?, error: Error?) in
             if let businesses = businesses {
@@ -114,9 +106,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    /*:
-     # Custom navigation bar
-     */
+    //Custom navigation bar
+    //custom navigation background color and text color
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.9, green: 1.0, blue: 1.0, alpha: 0.9)
@@ -125,9 +116,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    /*:
-     # Search bar function
-     */
+    //Search bar function
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchInput = businesses.filter({ (Business) -> Bool in
             guard searchBar.text != nil else { return false;}
@@ -138,17 +127,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     
-    /*:
-     # Search bar cancel function
-     */
+    //Search bar cancel function
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searching = false;
+        self.searchBar.endEditing(true)
+        searching = false
         searchInput = []
-        tableView.reloadData();
+        tableView.reloadData()
         searchBar.resignFirstResponder()
-        
     }
-
+    
+    /*:
+     # Connect with detailViewController
+     */
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        if let indexPath = tableView.indexPath(for: cell){
+            let business = businesses[indexPath.row]
+            let detailViewController = segue.destination as! DetailViewController
+            detailViewController.business = business
+        }
+    }
+    
     
 }
 

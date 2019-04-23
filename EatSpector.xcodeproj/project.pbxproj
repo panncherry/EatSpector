@@ -7,11 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0813CDEB226C403500E8406F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813CDEA226C403500E8406F /* HomeViewController.swift */; };
+		0813CDED226C40C200E8406F /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813CDEC226C40C200E8406F /* DetailViewController.swift */; };
+		0813CDEF226D3E4600E8406F /* GradientBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0813CDEE226D3E4600E8406F /* GradientBackgroundView.swift */; };
 		08441F192268E98300CDB2E7 /* BusinessAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08441F182268E98300CDB2E7 /* BusinessAPIManager.swift */; };
 		08441F1D2268E9E500CDB2E7 /* BusinessCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08441F1C2268E9E500CDB2E7 /* BusinessCell.swift */; };
 		08441F212268EAEC00CDB2E7 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08441F202268EAEC00CDB2E7 /* Business.swift */; };
 		085107CB2267D7E8003D467A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085107CA2267D7E8003D467A /* AppDelegate.swift */; };
-		085107CD2267D7E8003D467A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085107CC2267D7E8003D467A /* ViewController.swift */; };
 		085107D02267D7E8003D467A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 085107CE2267D7E8003D467A /* Main.storyboard */; };
 		085107D22267D7EA003D467A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 085107D12267D7EA003D467A /* Assets.xcassets */; };
 		085107D52267D7EA003D467A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 085107D32267D7EA003D467A /* LaunchScreen.storyboard */; };
@@ -41,12 +43,14 @@
 
 /* Begin PBXFileReference section */
 		05C9A3341F3BAF6CDA83B3F1 /* Pods-EatSpector.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EatSpector.release.xcconfig"; path = "Target Support Files/Pods-EatSpector/Pods-EatSpector.release.xcconfig"; sourceTree = "<group>"; };
+		0813CDEA226C403500E8406F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		0813CDEC226C40C200E8406F /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0813CDEE226D3E4600E8406F /* GradientBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientBackgroundView.swift; sourceTree = "<group>"; };
 		08441F182268E98300CDB2E7 /* BusinessAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessAPIManager.swift; sourceTree = "<group>"; };
 		08441F1C2268E9E500CDB2E7 /* BusinessCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCell.swift; sourceTree = "<group>"; };
 		08441F202268EAEC00CDB2E7 /* Business.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
 		085107C72267D7E8003D467A /* EatSpector.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EatSpector.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		085107CA2267D7E8003D467A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		085107CC2267D7E8003D467A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		085107CF2267D7E8003D467A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		085107D12267D7EA003D467A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		085107D42267D7EA003D467A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				08441F1C2268E9E500CDB2E7 /* BusinessCell.swift */,
+				0813CDEE226D3E4600E8406F /* GradientBackgroundView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -114,7 +119,8 @@
 		08441F1E2268E9F000CDB2E7 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				085107CC2267D7E8003D467A /* ViewController.swift */,
+				0813CDEA226C403500E8406F /* HomeViewController.swift */,
+				0813CDEC226C40C200E8406F /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -470,11 +476,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				085107CD2267D7E8003D467A /* ViewController.swift in Sources */,
 				08441F1D2268E9E500CDB2E7 /* BusinessCell.swift in Sources */,
 				085107CB2267D7E8003D467A /* AppDelegate.swift in Sources */,
 				08441F212268EAEC00CDB2E7 /* Business.swift in Sources */,
+				0813CDEF226D3E4600E8406F /* GradientBackgroundView.swift in Sources */,
+				0813CDED226C40C200E8406F /* DetailViewController.swift in Sources */,
 				08441F192268E98300CDB2E7 /* BusinessAPIManager.swift in Sources */,
+				0813CDEB226C403500E8406F /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
