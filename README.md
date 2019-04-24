@@ -5,27 +5,17 @@
 
 Check out the API data endpoints here >> https://data.cityofnewyork.us/resource/9w7m-hzhe.json 
 
-
-## User Stories
-
-The following **required** functionality is completed:
-
-- [x] User can sign up to create a new account using Parse authentication
-- [x] User can log in and log out of his or her account
-- [x] The current signed in user is persisted across app restarts
-- [x] User can search for a restaurant 
-- [x] User can use current location to see restaurants around the area
-- [x] User can see the grading letter and violation description for each restaurant
-- [x] User can tap a restaurant and see its detail view
-- [x] User can place an order online using Yelp
-- [x] User can view restaurant location on google map
-- [x] User can get directions using google map
+## Download on Apple Store
 
 
-## Search Bar Functionality
-- [x] User can search restaurants nearby 3-5 miles parameters.
-- [x] User can add filters on what sort of restaurant they are looking for. (For example, Thai or Chinese).
-- [x] User can get all locations of specific restaurants through map.
+
+## Screenshots
+
+Here's the screenshots of implemented user stories:
+
+<img src='https://i.imgur.com/SICYtBT.png' title='Screenshot1' width='172' alt='' /> <img src='https://i.imgur.com/9k6G6U1.png' title='Screenshot2' width='172' alt='' /> <img src='https://i.imgur.com/HKFZsZv.png' title='Screenshot3' width='172' alt='' /> <img src='https://i.imgur.com/TKmkdGq.png' title='Screenshot4' width='172' alt='' /> <img src='https://i.imgur.com/L5DKURf.png' title='Screenshot5' width='172' alt='' />
+
+
 
 ## Screen Walkthrough
 
@@ -33,13 +23,21 @@ Here's a walkthrough of launch screen and signin/signup page:
 
 <img src='https://i.imgur.com/8hjtpUH.jpg' title='Launch Screen' width='290' alt='Launch Screen' /><img src='https://i.imgur.com/VdpDwXn.png' title='SignIn Screen' width='295' alt='SignIn Screen' /><img src='https://i.imgur.com/4Riv6qC.png' title='SignUp Screen' width='295' alt='SignUp Screen' />
 
-## Prototype
 
-Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/JdAsnz0.png' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+## User Stories
 
-GIF created with [LiceCap](http://www.cockos.com/licecap/).
+The following **required** functionality is completed:
+
+- [x] User can search for a restaurant 
+- [x] User can see the grading letter and violation description for each restaurant
+- [x] User can tap a restaurant and see its detail view
+
+
+## Search Bar Functionality
+- [x] User can search restaurants nearby 3-5 miles parameters.
+
+
 
 ## Credits
 

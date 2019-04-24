@@ -27,9 +27,7 @@ class Business {
     
     
     
-    /*:
-     # Initiate a dictionary
-     */
+    //Initiate a dictionary
     init(dictionary: [String:Any]){
         name = dictionary["dba"] as? String ?? "no name"
         categories = dictionary["cuisine_description"] as? String ?? "no category"
@@ -50,9 +48,7 @@ class Business {
     
     
     
-    /*:
-     # Create a collection of dictionaries with business data
-     */
+    //Create a collection of dictionaries with business data
     class func businesses(dictionaries: [[String: Any]]) -> [Business]{
         var businesses: [Business] = []
         for dictionary in dictionaries {

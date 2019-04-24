@@ -10,43 +10,26 @@ import AFNetworking
 import CoreLocation
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
-    
-    @IBOutlet weak var tableView: UITableView!
     var businesses: [Business] = []
     var searching = false;
     var searchInput: [Business] = [];
     let cellSpacingHeight: CGFloat = 30
     let locationManager: CLLocationManager = CLLocationManager();
-    
+    var refreshControl: UIRefreshControl!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         tableView.delegate = self
         tableView.rowHeight = 128
         searchBar.delegate = self
-        locationManager.delegate = self;
-        locationManager.requestWhenInUseAuthorization();
-        locationManager.startUpdatingLocation();
-        
-        locationManager.distanceFilter = 75;
-        //locationManager.stopUpdatingLocation()
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(HomeViewController.didPullToRefresh(_:)), for: .valueChanged)
+        tableView.insertSubview(refreshControl, at: 0)
+        self.activityIndicator.startAnimating()
         tableView.dataSource = self
         fetchBusinesses()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.black
-        nav?.tintColor = UIColor.black
-    }
-    
-    //Set up navigation bar
-    func setupNavBar(){
-        navigationController?.navigationBar.prefersLargeTitles = true;
-        let searchController = UISearchController(searchResultsController: nil);
-        navigationItem.searchController = searchController;
-        searchController.delegate = self as? UISearchControllerDelegate;
-        navigationItem.hidesSearchBarWhenScrolling = false;
     }
     
     
@@ -65,24 +48,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BusinessCell", for: indexPath) as! BusinessCell
         
-        //code to change color of selected cell background
+        // code to change color of the cell user selected
         let backgroundView = UIView()
-       //backgroundView.backgroundColor = UIColor.init(red: 0.9, green: 1.0, blue: 1.0, alpha: 1.0)
-        backgroundView.backgroundColor = UIColor.init(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
-
+        backgroundView.backgroundColor = UIColor.darkGray
         cell.selectedBackgroundView = backgroundView
-        //cell.contentView.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 1.0, alpha: 0.9)
-        //code to set the cell background
-        let whiteRoundedView : UIView = UIView(frame: CGRect(x: 10, y: 8, width: self.view.frame.size.width - 20, height: 128))
-        
-        //cell background color
-        whiteRoundedView.layer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [0.0, 0.0, 0.0, 0.9])
-        whiteRoundedView.layer.masksToBounds = false
-        whiteRoundedView.layer.cornerRadius = 2.0
-        whiteRoundedView.layer.shadowOffset = CGSize(width: -1, height: 1)
-        whiteRoundedView.layer.shadowOpacity = 0.2
-        cell.contentView.addSubview(whiteRoundedView)
-        cell.contentView.sendSubviewToBack(whiteRoundedView)
         
         if searchInput.count != 0 {
             cell.business = searchInput[indexPath.row]
@@ -99,8 +68,8 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if let businesses = businesses {
                 self.businesses = businesses
                 self.tableView.reloadData()
-                //self.activityIndicator.stopAnimating()
-                //self.refreshControl.endRefreshing()
+                self.activityIndicator.stopAnimating()
+                self.refreshControl.endRefreshing()
             }
         }
     }
@@ -110,11 +79,26 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     //custom navigation background color and text color
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.9, green: 1.0, blue: 1.0, alpha: 0.9)
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
         self.navigationController?.navigationBar.tintColor = UIColor.white
-        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        self.navigationController!.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor(red: 0.4, green: 1.0, blue: 1.0, alpha: 1.0)]
     }
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        let nav = self.navigationController?.navigationBar
+        nav?.barStyle = UIBarStyle.black
+        nav?.tintColor = UIColor(red: 0.4, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    //Set up navigation bar
+    func setupNavBar(){
+        navigationController?.navigationBar.prefersLargeTitles = true;
+        let searchController = UISearchController(searchResultsController: nil);
+        navigationItem.searchController = searchController;
+        searchController.delegate = self as? UISearchControllerDelegate;
+        navigationItem.hidesSearchBarWhenScrolling = false;
+    }
     
     //Search bar function
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -126,19 +110,34 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         tableView.reloadData();
     }
     
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
     
     //Search bar cancel function
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.searchBar.endEditing(true)
+        searchBar.text = ""
         searching = false
         searchInput = []
         tableView.reloadData()
         searchBar.resignFirstResponder()
     }
     
-    /*:
-     # Connect with detailViewController
-     */
+    //code to fetch businesses when pull to refresh
+    @objc func didPullToRefresh(_ refreshControl: UIRefreshControl) {
+        fetchBusinesses()
+    }
+    
+    //code to display error message when network fails
+    func networkErrorAlert(title:String, message:String){
+        let networkErrorAlert = UIAlertController(title: "Network Error", message: "The internet connection appears to be offline. Please try again later.", preferredStyle: UIAlertController.Style.alert)
+        networkErrorAlert.addAction(UIAlertAction(title: "Try again", style: UIAlertAction.Style.default, handler: { (action) in self.fetchBusinesses()}))
+        self.present(networkErrorAlert, animated: true, completion: nil)
+    }
+    
+    //Connect with detailViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let cell = sender as! UITableViewCell
         if let indexPath = tableView.indexPath(for: cell){

@@ -9,24 +9,58 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    var businesses: [Business] = []
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var businessProfilePic: UIImageView!
+    @IBOutlet weak var businessNameLabel: UILabel!
+    @IBOutlet weak var categoriesLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var addressLabel2: UILabel!
+    @IBOutlet weak var phoneNumberLabel: UILabel!
+    @IBOutlet weak var gradingLabel: UILabel!
+    @IBOutlet weak var gradeDateLabel: UILabel!
+    @IBOutlet weak var criticalFlagLabel: UILabel!
+    @IBOutlet weak var violationCodeLabel: UILabel!
+    @IBOutlet weak var violationDescriptionLabel: UILabel!
+    
     
     var business: Business?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        businessNameLabel.text = business?.name
+        categoriesLabel.text = business?.categories
+        
+        let building = business?.building_number ?? "123"
+        let street = business?.street ?? "Sunshine street"
+        let boro = business?.boro ?? "Boro"
+        let zipcode = business?.zipcode ?? "12345"
+        addressLabel.text = building + " " + street
+        addressLabel2.text = boro + ", NY " + zipcode
+        
+        phoneNumberLabel.text = arrangeUSFormat(strPhone: business?.phone ?? "(212)-123-4455")
+        gradingLabel.text = business?.grading
+        gradeDateLabel.text = business?.record_date
+        
+        criticalFlagLabel.text = business?.critical_flag
+        violationCodeLabel.text = business?.violation_code
+        violationDescriptionLabel.text = business?.violation_Description
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    //Format phone number reterive from API
+    func arrangeUSFormat(strPhone : String)-> String {
+        var strUpdated = strPhone
+        if strPhone.count == 10 {
+            strUpdated.insert("(", at: strUpdated.startIndex)
+            strUpdated.insert(")", at: strUpdated.index(strUpdated.startIndex, offsetBy: 4))
+            strUpdated.insert(" ", at: strUpdated.index(strUpdated.startIndex, offsetBy: 5))
+            strUpdated.insert("-", at: strUpdated.index(strUpdated.startIndex, offsetBy: 9))
+        }
+        return strUpdated
     }
-    */
+
 
 }
