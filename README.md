@@ -17,14 +17,6 @@ Here's the screenshots of implemented user stories:
 
 
 
-## Screen Walkthrough
-
-Here's a walkthrough of launch screen and signin/signup page:
-
-<img src='https://i.imgur.com/8hjtpUH.jpg' title='Launch Screen' width='290' alt='Launch Screen' /><img src='https://i.imgur.com/VdpDwXn.png' title='SignIn Screen' width='295' alt='SignIn Screen' /><img src='https://i.imgur.com/4Riv6qC.png' title='SignUp Screen' width='295' alt='SignUp Screen' />
-
-
-
 ## User Stories
 
 The following **required** functionality is completed:
