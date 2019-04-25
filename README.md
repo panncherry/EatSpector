@@ -6,7 +6,8 @@
 Check out the API data endpoints here >> https://data.cityofnewyork.us/resource/9w7m-hzhe.json 
 
 ## Download on Apple Store
-
+<img src='https://i.imgur.com/Kye8SMh.png' title='icon' width='100' alt='' />
+https://itunes.apple.com/us/app/eatspector/id1460188948
 
 
 ## Screenshots

@@ -11,6 +11,7 @@ import CoreLocation
 
 class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, CLLocationManagerDelegate {
     var businesses: [Business] = []
+    var filteredBusiness:[Business]!
     var searching = false;
     var searchInput: [Business] = [];
     let cellSpacingHeight: CGFloat = 30
@@ -100,29 +101,28 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         navigationItem.hidesSearchBarWhenScrolling = false;
     }
     
-    //Search bar function
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchInput = businesses.filter({ (Business) -> Bool in
-            guard searchBar.text != nil else { return false;}
-            return Business.name.lowercased().contains(searchText.lowercased())
+        businesses = searchText.isEmpty ? filteredBusiness : searchInput.filter({ movie -> Bool in
+            let dataString = movie.title
+            return dataString.lowercased().range(of: searchText.lowercased()) != nil
         })
-        searching = true;
-        tableView.reloadData();
-    }
-    
-    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
-    //Search bar cancel function
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.searchBar.endEditing(true)
-        searchBar.text = ""
-        searching = false
-        searchInput = []
         tableView.reloadData()
+    }
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        self.searchBar.showsCancelButton = true
+        fetchMovies()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
+        searchBar.text = ""
         searchBar.resignFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        allMovies = movies
     }
     
     //code to fetch businesses when pull to refresh
