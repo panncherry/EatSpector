@@ -146,7 +146,7 @@
                                             <outlet property="categoriesLabel" destination="sa9-OP-hHw" id="xhv-mf-xFL"/>
                                             <outlet property="gradingLabel" destination="DgN-ls-7Lj" id="GBX-St-qa9"/>
                                             <outlet property="gradingLabel2" destination="3Hm-Cr-GhZ" id="vfv-Dv-h0k"/>
-                                            <segue destination="ERm-uX-Gdz" kind="show" id="Ayx-Ub-iAY"/>
+                                            <segue destination="ERm-uX-Gdz" kind="show" id="Cns-H4-Fdz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -380,6 +380,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </view>
+                    <navigationItem key="navigationItem" id="88v-Pu-MCU"/>
                     <connections>
                         <outlet property="addressLabel" destination="wQ3-e1-bTz" id="76m-kf-syk"/>
                         <outlet property="addressLabel2" destination="e6s-1h-lJG" id="s4V-yc-Nco"/>
@@ -397,7 +398,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ADl-4f-2aj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2348" y="775.86206896551732"/>
+            <point key="canvasLocation" x="2442" y="776"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="YsN-lP-WAo">

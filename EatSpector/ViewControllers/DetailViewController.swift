@@ -29,23 +29,25 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        businessNameLabel.text = business?.name
-        categoriesLabel.text = business?.categories
-        
-        let building = business?.building_number ?? "123"
-        let street = business?.street ?? "Sunshine street"
-        let boro = business?.boro ?? "Boro"
-        let zipcode = business?.zipcode ?? "12345"
-        addressLabel.text = building + " " + street
-        addressLabel2.text = boro + ", NY " + zipcode
-        
-        phoneNumberLabel.text = arrangeUSFormat(strPhone: business?.phone ?? "(212)-123-4455")
-        gradingLabel.text = business?.grading
-        gradeDateLabel.text = business?.record_date
-        
-        criticalFlagLabel.text = business?.critical_flag
-        violationCodeLabel.text = business?.violation_code
-        violationDescriptionLabel.text = business?.violation_Description
+        if let business = business {
+            businessNameLabel.text = business.name
+            categoriesLabel.text = business.categories
+            let building = business.building_number
+            let street = business.street
+            let boro = business.boro
+            let zipcode = business.zipcode
+            addressLabel.text = building + " " + street
+            addressLabel2.text = boro + ", NY " + zipcode
+            
+            phoneNumberLabel.text = arrangeUSFormat(strPhone: business.phone)
+            gradingLabel.text = business.grading
+            gradeDateLabel.text = business.record_date
+            
+            criticalFlagLabel.text = business.critical_flag
+            violationCodeLabel.text = business.violation_code
+            violationDescriptionLabel.text = business.violation_Description
+            
+        }
         
     }
     
